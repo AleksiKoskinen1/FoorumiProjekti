@@ -1,0 +1,48 @@
+<div class="page-header">
+  <h1>{{ topicName }}</h1>
+</div>
+
+<p>
+  {{ topicDescription }}
+</p>
+
+<h2 ng-model= "mlenght">
+<ng-pluralize count="mlenght"
+                 when="{'0': 'Ei Viestejä',
+                     'one': '1 Viesti',
+                     'other': '{} Viestiä'}">
+</ng-pluralize></h2> 
+
+<ul class="media-list">
+  <li class="media" ng-repeat="message in messages">
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="#/messages/{{ message.id }}">{{ message.title }}</a>
+      </h4>
+
+      <p>
+        {{ message.content }}
+      </p>
+
+      <p class="text-muted">
+        {{ message.User.username }}, {{  message.createdAt | date:'short'  }}
+      </p>
+      
+    </div>
+  </li>
+</ul>
+
+<h2 ng-if = "myVar" ng-init="myVar = false">Lisää oma viestisi</h2>
+
+<form ng-if = "myVar" ng-init="myVar = false">
+  <div class="form-group">
+    <label>Otsikko</label>
+    <input type="text" class="form-control" ng-model="$parent.newMessage.title">
+  </div>
+
+  <div class="form-group">
+    <label>Viesti</label>
+    <textarea class="form-control" ng-model="$parent.newMessage.content"></textarea>
+  </div>
+  <button class="btn btn-success" ng-click="addMessage()">Lisää viesti</button>
+</form>

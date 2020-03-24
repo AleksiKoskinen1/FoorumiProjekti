@@ -1,0 +1,35 @@
+<div class="page-header">
+  <h1>Aihealueet</h1>
+</div>
+
+<div class="panel panel-default" ng-repeat="topic in topics">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <a href="#/topics/{{ topic.id }}">{{ topic.name }}</a>
+    </h3>
+  </div>
+  <div class="panel-body">
+    {{ topic.description }} <p></p>
+  </div>
+</div>
+
+
+<!--NG-IF Direktiivi tekee uuden child scopen kun sitä käytetään, eli toisin sanoen
+    kaikki alla olevassa formissa olevat Ng-modelit EIVät näy suoraan controllerille
+    jos niissä on perus $scope.something, koska ne ovat eri scope skaalassa. Siksi
+    on käytettävä $parent.something jotta kyseinen arvo näkyy controllerille. Eli $parent on alla
+    olevan formin yksi scope skaala, mun ng-if käyttää tekemäänsä child $scope-skaalaa-->
+<h2 ng-if = "myVar" ng-init="myVar = false">Lisää oma aihealueesi</h2>
+
+<form ng-if = "myVar" ng-init="myVar = false">
+  <div class="form-group">
+    <label>Nimi</label>
+    <input type="text" class="form-control" ng-model="$parent.newTopic.name"> 
+  </div>
+
+  <div class="form-group" >
+    <label>Kuvaus</label>
+    <textarea class="form-control" ng-model="$parent.newTopic.description"></textarea>
+  </div>
+  <button class="btn btn-success" ng-click="addTopic()">Lisää viesti</button>
+</form>

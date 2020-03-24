@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h1>{{ messageTitle }}</h1>
+</div>
+
+<p>
+  {{ messageContent }}
+</p>
+
+<h2 ng-model= "mlenght">
+<ng-pluralize count="mlenght"
+                 when="{'0': 'Ei Vastauksia',
+                     'one': '1 Vastaus',
+                     'other': '{} Vastausta'}">
+</ng-pluralize></h2>
+
+<ul class="media-list">
+  <li class="media"  ng-repeat="reply in replies">
+    <div class="media-body">
+      <h4 class="media-heading">Käyttäjä: {{ reply.User.username }}</h4>
+
+      <p>
+        {{ reply.content }}
+      </p>
+
+      <p class="text-muted">
+        {{  reply.createdAt | date:'short'  }}
+      </p>
+    </div>
+  </li>
+</ul>
+
+<h2 ng-if = "myVar" ng-init="myVar = false">Lisää oma vastauksesi</h2>
+
+<form ng-if = "myVar" ng-init="myVar = false">
+  <div class="form-group">
+    <label>Vastaus</label>
+    <textarea class="form-control"  ng-model="$parent.newReply.content"></textarea>
+  </div>
+  <button class="btn btn-success" ng-click="addReply()">Lisää vastaus</button>
+</form>
